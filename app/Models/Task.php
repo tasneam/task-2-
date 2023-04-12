@@ -12,7 +12,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Task extends Model
 {
-    use SoftDeletes, MultiTenantModelTrait, Auditable, HasFactory;
+    // use SoftDeletes, MultiTenantModelTrait, Auditable, HasFactory;
 
     public $table = 'tasks';
 

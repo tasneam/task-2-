@@ -8,6 +8,7 @@ use App\Http\Requests\UpdateUserRequest;
 use App\Http\Resources\Admin\UserResource;
 use App\Models\User;
 use Gate;
+use Auth;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -19,6 +20,7 @@ class UsersApiController extends Controller
 
         return new UserResource(User::with(['roles'])->get());
     }
+
 
     public function store(StoreUserRequest $request)
     {
@@ -55,4 +57,15 @@ class UsersApiController extends Controller
 
         return response(null, Response::HTTP_NO_CONTENT);
     }
+    public function logout(Request $request)
+    {
+        $user = Auth::guard('api')->user();
+        $revoke = $user->token()->revoke();
+        $status = true;
+        $message = 'success';
+        $response = ['status' => $status, 'message' => $message];
+        return response()->json($response);
+    }
+
+    
 }
